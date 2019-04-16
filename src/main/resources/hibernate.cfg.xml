@@ -19,7 +19,8 @@
         <property name="show_sql">true</property>
 
         <!-- tu będą kiedyś adresy klas modeli -->
-
+        <mapping class="pl.sda.store.model.Product"/>
+        <mapping class="pl.sda.store.model.Inventory"/>
 
     </session-factory>
 </hibernate-configuration>
