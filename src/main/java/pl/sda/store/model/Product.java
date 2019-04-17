@@ -23,10 +23,13 @@ public class Product implements IBaseEntity {
     private Long id;
 
     private String name;
+
+    @ToString.Exclude
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<Inventory> inventory = new ArrayList<>();
 
     public Product(String name) {
         this.name = name;
     }
+
 }

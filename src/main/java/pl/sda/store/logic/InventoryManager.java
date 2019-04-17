@@ -50,4 +50,10 @@ public class InventoryManager {
         }
     }
 
+    public static void listInventory(){
+        EntityDao entityDao = new EntityDao();
+        entityDao.getListOfAll(Inventory.class).forEach(System.out::println);
+    }
+
+
 }
