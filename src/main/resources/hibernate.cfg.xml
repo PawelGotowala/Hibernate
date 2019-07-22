@@ -8,7 +8,7 @@
         <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
         <property name="connection.url">jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC</property>
         <property name="connection.user">root</property>
-        <property name="connection.password">Jestemkolejarzem7</property>
+        <property name="connection.password">root</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!-- update dopisuje kolumny jeśli brakuje -->
@@ -21,6 +21,8 @@
         <!-- tu będą kiedyś adresy klas modeli -->
         <mapping class="pl.sda.store.model.Product"/>
         <mapping class="pl.sda.store.model.Inventory"/>
+        <mapping class="pl.sda.store.model.ProductSale"/>
+        <mapping class="pl.sda.store.model.Invoice"/>
 
     </session-factory>
 </hibernate-configuration>

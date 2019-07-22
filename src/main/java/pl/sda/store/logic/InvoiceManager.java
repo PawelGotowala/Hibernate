@@ -3,15 +3,19 @@ package pl.sda.store.logic;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import pl.sda.store.model.Inventory;
 import pl.sda.store.model.Invoice;
-import pl.sda.store.model.Product;
+import pl.sda.store.model.ProductSale;
 
-import java.time.LocalDate;
 
-public class InventoryManager {
+public class InvoiceManager {
 
-    public static void addToInventory(String quantity, String value, Long productId) {
+    public static void addInvoice(Invoice invoice){
+        EntityDao entityDao = new EntityDao();
+        entityDao.save(invoice);
+    }
+
+
+    public static void addSale(Long idInvoice, String quantity, String price){
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 
@@ -21,23 +25,20 @@ public class InventoryManager {
             transaction = session.beginTransaction();
 
             // logika logika logika...
-            // 1. stworzenie inventory
-            Inventory inventory = new Inventory( quantity, value, LocalDate.now());
-
+            // 1. stworzenie
+            ProductSale productSale = new ProductSale(quantity,price);
             // 2. zapisanie inventory
-            session.save(inventory);
+            session.save(productSale);
 
             // 3. pobranie produktu z identyfikatorem productId
-            Product product = session.get(Product.class, productId);
+            Invoice invoice = session.get(Invoice.class, idInvoice);
             // Gdyby produktu nie udało się odnaleźć otrzymalibyśmy exception
             // co spowodowałoby wykonanie rollback'a.
 
-            inventory.setProduct(product);
-            product.getInventory().add(inventory);
 
-            session.update(product);
-            session.update(inventory);
-//            session.save(repairOrder);
+            invoice.getProductSalesList().add(productSale);
+
+            session.update(invoice);
 
             transaction.commit();
         } catch (Exception sqle) {// dzięki try - with - resources nie musimy robić 'close' na sesji
@@ -50,11 +51,9 @@ public class InventoryManager {
             }
         }
     }
-
-    public static void listInventory(){
+    public static void listaproduktownafakturze(){
         EntityDao entityDao = new EntityDao();
-        entityDao.getListOfAll(Inventory.class).forEach(System.out::println);
+        entityDao.getById(Invoice.class , (long) 1).get().getProductSalesList().forEach(System.out::println);
     }
-
 
 }

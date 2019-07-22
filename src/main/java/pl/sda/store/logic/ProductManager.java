@@ -1,15 +1,15 @@
 package pl.sda.store.logic;
 
-import pl.sda.store.model.IBaseEntity;
 import pl.sda.store.model.Product;
 
 import java.util.Optional;
 
 public class ProductManager {
 
-    public static void addProduct(IBaseEntity iBaseEntity){
+
+    public static void addProduct(Product product){
         EntityDao entityDao = new EntityDao();
-        entityDao.save(iBaseEntity);
+        entityDao.save(product);
     }
 
     public static void listProducts(){
@@ -23,6 +23,6 @@ public class ProductManager {
         product.ifPresent(product1 -> product1.getInventory().forEach(System.out::println));
     }
 
-
+// NIE ROBIC STATYCZNYCH !!
 
 }
